@@ -1,0 +1,44 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies & build
+node_modules
+.pnpm-store
+dist
+dist-ssr
+*.local
+
+# Env (keep .env.example tracked)
+.env
+.env.*
+!.env.example
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Cypress
+cypress/videos
+cypress/screenshots
+cypress/downloads
+
+# Test / typecheck caches
+coverage
+*.tsbuildinfo
+
+# Private planning (not for public tree yet)
+docs/dev/
+.cursor/
