@@ -1,6 +1,6 @@
-# com-scan-vue
+# vastion
 
-![com-scan](images/com-scan-vue.jpg)
+![vastion](images/vastion.jpg)
 
 A galactic watchdesk for space battalions. Sites and sensors across the fleet feed a shared picture; operators triage detections and push decisions back out so units stay aligned when the link is contested or delayed.
 
@@ -8,7 +8,7 @@ A galactic watchdesk for space battalions. Sites and sensors across the fleet fe
 
 Battalions need more than a list of alerts. They need **shared awareness** across light-minutes of latency: what was seen, how sure we are, who owns the next move, and what already went back to the edge.
 
-**com-scan** is the civilian / sci-fi stand-in for that loop — **Frontline Perception → Command → Autonomy**, with humans still on the stick:
+**vastion** is the civilian / sci-fi stand-in for that loop — **Frontline Perception → Command → Autonomy**, with humans still on the stick:
 
 | Layer | In product terms |
 | --- | --- |
@@ -31,7 +31,7 @@ Status stays small: `open` → `acked` | `rejected`. Commands are idempotent; il
 
 ## Stack & repo boundary
 
-This repo is the Vue 3 client in a two-repo setup. The Go API lives in the sibling **`com-scan-api`** repo. Contracts are OpenAPI + GraphQL schema — Vue never talks to Mongo directly.
+This repo is the Vue 3 client in a two-repo setup. The Go API lives in the sibling **`vastion-api`** repo. Contracts are OpenAPI + GraphQL schema — Vue never talks to Mongo directly.
 
 | Surface | Why |
 | --- | --- |
@@ -69,7 +69,7 @@ Pinia is not a cache of detections. Server data flows through composables; Pinia
 
 ## API configuration
 
-Point the client at a running **`com-scan-api`** instance:
+Point the client at a running **`vastion-api`** instance:
 
 ```bash
 cp .env.example .env.local
@@ -85,7 +85,7 @@ VITE_USE_MSW=true
 | --- | --- |
 | `VITE_API_URL` | REST base URL for list / detail / ack commands |
 | `VITE_GRAPHQL_URL` | GraphQL endpoint (wired in a later phase) |
-| `VITE_USE_MSW` | When `true` (and in dev), intercepts API calls with local mocks so you can demo without `com-scan-api` |
+| `VITE_USE_MSW` | When `true` (and in dev), intercepts API calls with local mocks so you can demo without `vastion-api` |
 
 Set `VITE_USE_MSW=false` once a local API is running. Verify the API is up:
 
@@ -118,7 +118,7 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173). With MSW enabled (default in `.env.example`), `/detections` loads a mocked triage queue — filter, open a row, ack or reject. Point at a live `com-scan-api` by setting `VITE_USE_MSW=false`.
+Open [http://localhost:5173](http://localhost:5173). With MSW enabled (default in `.env.example`), `/detections` loads a mocked triage queue — filter, open a row, ack or reject. Point at a live `vastion-api` by setting `VITE_USE_MSW=false`.
 
 ## Author
 

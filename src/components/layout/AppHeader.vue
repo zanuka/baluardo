@@ -11,7 +11,7 @@ const toasts = useToastStore()
 
 const pageTitle = computed(() => {
   const title = route.meta.title
-  return typeof title === 'string' ? title : 'com-scan'
+  return typeof title === 'string' ? title : 'vastion'
 })
 
 const densityLabel = computed(() =>

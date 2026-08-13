@@ -12,7 +12,7 @@ const navItems = [{ label: 'Detections', to: '/detections' }]
     aria-label="Primary navigation"
   >
     <div class="border-b border-border px-4 py-5">
-      <p class="text-xs font-semibold uppercase tracking-wider text-muted">com-scan</p>
+      <p class="text-xs font-semibold uppercase tracking-wider text-muted">vastion</p>
       <p class="mt-1 text-sm font-medium text-slate-100">Watchdesk</p>
     </div>
     <nav class="flex flex-1 flex-col gap-1 p-3">

@@ -15,8 +15,8 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
-  const title = typeof route.meta.title === 'string' ? route.meta.title : 'com-scan'
-  document.title = `${title} · com-scan`
+  const title = typeof route.meta.title === 'string' ? route.meta.title : 'vastion'
+  document.title = `${title} · vastion`
 })
 </script>
 
