@@ -14,7 +14,7 @@ const isDev = import.meta.env.DEV
 
 const pageTitle = computed(() => {
   const title = route.meta.title
-  return typeof title === 'string' ? title : 'vastion'
+  return typeof title === 'string' ? title : 'baluardo'
 })
 
 const densityLabel = computed(() =>
