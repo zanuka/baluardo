@@ -1,11 +1,12 @@
 import { createApp } from 'vue'
+import { isMswEnabled } from '@/api/flags'
 import App from '@/app/App.vue'
 import { pinia } from '@/app/plugins/pinia'
 import { router } from '@/app/router'
 import '@/styles/main.css'
 
 async function bootstrap() {
-  if (import.meta.env.DEV && import.meta.env.VITE_USE_MSW === 'true') {
+  if (isMswEnabled()) {
     const { startMockServiceWorker } = await import('@/mocks/browser')
     await startMockServiceWorker()
   }

@@ -16,7 +16,7 @@ export function useDetectionsList() {
   const { viewState, reload } = useAsyncReload(async () => {
     const result = await fetchDetections(apiFilters.value)
     items.value = result.items
-    nextCursor.value = result.nextCursor
+    nextCursor.value = result.nextCursor ?? null
   })
 
   const itemCount = computed(() => items.value.length)

@@ -25,7 +25,7 @@ export const detectionSchema = z.object({
 
 export const detectionsListSchema = z.object({
   items: z.array(detectionSchema),
-  nextCursor: z.string().nullable(),
+  nextCursor: z.string().nullish(),
 })
 
 export const siteSchema = z.object({

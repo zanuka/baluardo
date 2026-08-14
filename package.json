@@ -17,12 +17,14 @@
     ]
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode api",
+    "dev:api": "vite --mode api",
+    "dev:msw": "vite --mode msw",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "start-server-and-test dev http://localhost:5173 'cypress run --e2e'",
+    "test:e2e": "start-server-and-test dev:msw http://localhost:5173 'cypress run --e2e'",
     "cypress:component": "cypress run --component",
     "cypress:open": "cypress open",
     "lint": "eslint .",

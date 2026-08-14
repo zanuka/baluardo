@@ -1,11 +1,11 @@
 import { ofetch } from 'ofetch'
+import { getApiBaseUrl } from '@/api/flags'
 import { mapFetchError } from '@/api/rest/errors'
 import { useSessionStore } from '@/stores/session'
 
-const baseURL = import.meta.env.VITE_API_URL ?? ''
-
 export const restClient = ofetch.create({
-  baseURL,
+  baseURL: getApiBaseUrl(),
+  retry: false,
   async onRequest({ options }) {
     const session = useSessionStore()
     const headers = new Headers(options.headers as HeadersInit | undefined)
@@ -20,7 +20,3 @@ export const restClient = ofetch.create({
     })
   },
 })
-
-export function getApiBaseUrl(): string {
-  return baseURL
-}

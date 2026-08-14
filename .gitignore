@@ -14,10 +14,12 @@ dist
 dist-ssr
 *.local
 
-# Env (keep .env.example tracked)
+# Env (keep .env.example and Vite mode files tracked)
 .env
 .env.*
 !.env.example
+!.env.api
+!.env.msw
 
 # Editor directories and files
 .vscode/*

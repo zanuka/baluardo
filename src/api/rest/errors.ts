@@ -1,4 +1,5 @@
-export type RestErrorKind = 'forbidden' | 'conflict' | 'not_found' | 'validation' | 'server' | 'network'
+export type RestErrorKind =
+  'forbidden' | 'conflict' | 'not_found' | 'validation' | 'server' | 'network'
 
 export class RestError extends Error {
   readonly kind: RestErrorKind
@@ -49,8 +50,8 @@ export function mapFetchError(error: unknown): RestError {
   const detail = problem.detail ?? problem.title
   const message = detail ?? fetchError.message ?? 'Request failed'
 
-  if (status === 403) {
-    return new RestError('forbidden', 403, message, detail)
+  if (status === 401 || status === 403) {
+    return new RestError('forbidden', status, message, detail)
   }
   if (status === 409) {
     return new RestError('conflict', 409, message, detail)
