@@ -2,7 +2,7 @@
 
 ![vastion](images/vastion.jpg)
 
-A galactic watchdesk for space battalions. Sites and sensors across the fleet feed a shared picture; operators triage detections and push decisions back out so units stay aligned when the link is contested or delayed.
+A fictional galactic watchdesk for space battalions. Sites and sensors across the fleet feed a shared picture; operators triage detections and push decisions back out so units stay aligned when the link is contested or delayed.
 
 ## Vision
 
