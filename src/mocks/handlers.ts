@@ -1,20 +1,26 @@
 import { http, HttpResponse } from 'msw'
+import { getApiBaseUrl } from '@/api/flags'
 import type { Detection, DetectionSeverity, DetectionStatus } from '@/api/rest/schemas'
 import { findDetection, getDetections, mockSites, updateDetection } from '@/mocks/fixtures'
 
-const apiBase = import.meta.env.VITE_API_URL ?? ''
+const apiBase = getApiBaseUrl()
 
 function problem(status: number, title: string, detail?: string) {
-  return HttpResponse.json(
-    { title, detail: detail ?? title, status },
-    { status },
-  )
+  return HttpResponse.json({ title, detail: detail ?? title, status }, { status })
 }
 
-function filterDetections(
-  items: Detection[],
-  params: URLSearchParams,
-): Detection[] {
+function requireOperator(request: Request) {
+  const role = request.headers.get('X-Operator-Role')
+  if (!role) {
+    return problem(401, 'Unauthorized', 'Operator role header is required.')
+  }
+  if (role !== 'analyst' && role !== 'supervisor') {
+    return problem(403, 'Forbidden', 'Forbidden')
+  }
+  return null
+}
+
+function filterDetections(items: Detection[], params: URLSearchParams): Detection[] {
   let filtered = [...items]
 
   const site = params.get('site')
@@ -32,20 +38,22 @@ function filterDetections(
     filtered = filtered.filter((item) => item.status === status)
   }
 
-  return filtered.sort(
-    (a, b) => Date.parse(b.detectedAt) - Date.parse(a.detectedAt),
-  )
+  return filtered.sort((a, b) => Date.parse(b.detectedAt) - Date.parse(a.detectedAt))
 }
 
 export const handlers = [
-  http.get(`${apiBase}/api/v1/sites`, () => {
+  http.get(`${apiBase}/api/v1/sites`, ({ request }) => {
+    const denied = requireOperator(request)
+    if (denied) {
+      return denied
+    }
     return HttpResponse.json({ items: mockSites })
   }),
 
   http.get(`${apiBase}/api/v1/detections`, ({ request }) => {
-    const role = request.headers.get('X-Operator-Role')
-    if (!role) {
-      return problem(403, 'Forbidden', 'Operator role header is required.')
+    const denied = requireOperator(request)
+    if (denied) {
+      return denied
     }
 
     const url = new URL(request.url)
@@ -54,9 +62,9 @@ export const handlers = [
   }),
 
   http.get(`${apiBase}/api/v1/detections/:id`, ({ params, request }) => {
-    const role = request.headers.get('X-Operator-Role')
-    if (!role) {
-      return problem(403, 'Forbidden', 'Operator role header is required.')
+    const denied = requireOperator(request)
+    if (denied) {
+      return denied
     }
 
     const id = params.id as string
@@ -73,9 +81,9 @@ export const handlers = [
   }),
 
   http.post(`${apiBase}/api/v1/detections/:id/ack`, ({ params, request }) => {
-    const role = request.headers.get('X-Operator-Role')
-    if (!role) {
-      return problem(403, 'Forbidden', 'Operator role header is required.')
+    const denied = requireOperator(request)
+    if (denied) {
+      return denied
     }
 
     const id = params.id as string
@@ -104,9 +112,9 @@ export const handlers = [
   }),
 
   http.post(`${apiBase}/api/v1/detections/:id/reject`, async ({ params, request }) => {
-    const role = request.headers.get('X-Operator-Role')
-    if (!role) {
-      return problem(403, 'Forbidden', 'Operator role header is required.')
+    const denied = requireOperator(request)
+    if (denied) {
+      return denied
     }
 
     const id = params.id as string

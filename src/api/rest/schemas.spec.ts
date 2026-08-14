@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { detectionSchema, detectionsListSchema } from '@/api/rest/schemas'
+import { describe, expect, it } from 'vitest'
 
 describe('detection schemas', () => {
   it('parses a valid detection', () => {
@@ -33,5 +33,10 @@ describe('detection schemas', () => {
 
     expect(parsed.items).toEqual([])
     expect(parsed.nextCursor).toBeNull()
+  })
+
+  it('allows an omitted nextCursor', () => {
+    const parsed = detectionsListSchema.parse({ items: [] })
+    expect(parsed.nextCursor).toBeUndefined()
   })
 })

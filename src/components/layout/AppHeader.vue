@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { isMswEnabled } from '@/api/flags'
 import SiteSwitcher from '@/components/layout/SiteSwitcher.vue'
 import { useSessionStore } from '@/stores/session'
 import { useToastStore } from '@/stores/toasts'
@@ -8,6 +9,8 @@ import { useToastStore } from '@/stores/toasts'
 const route = useRoute()
 const session = useSessionStore()
 const toasts = useToastStore()
+const mockApi = isMswEnabled()
+const isDev = import.meta.env.DEV
 
 const pageTitle = computed(() => {
   const title = route.meta.title
@@ -29,6 +32,13 @@ const themeLabel = computed(() => (session.theme === 'dark' ? 'Light theme' : 'D
     <h1 class="truncate text-base font-semibold text-slate-100">{{ pageTitle }}</h1>
     <div class="flex shrink-0 items-center gap-3">
       <SiteSwitcher />
+      <span
+        v-if="isDev"
+        data-testid="api-mode"
+        class="hidden rounded-md border border-border px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-muted sm:inline"
+      >
+        {{ mockApi ? 'MSW' : 'Live API' }}
+      </span>
       <button
         type="button"
         data-testid="density-toggle"
