@@ -4,8 +4,6 @@
 
 **Baluardo** (Italian for *bulwark*) — a protective wall; the strong defense of the fleet. A hosted watchdesk **game**. You are the duty officer. Sites and sensors across a delayed fleet feed an imperfect picture; you triage detections and push decisions back to the edge. The interesting part is not clicking the red contacts — it is living with latency, confidence, and the cost of being wrong.
 
-Design notes: [`docs/dev/baluardo-game.md`](docs/dev/baluardo-game.md). Plan of record: [`docs/dev/baluardo-plan.md`](docs/dev/baluardo-plan.md).
-
 ## Vision
 
 Most command games hide uncertainty. Baluardo makes it the gameplay.
