@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
 import ToastStack from '@/components/ToastStack.vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppSidebar from '@/components/layout/AppSidebar.vue'
 import { useSessionStore } from '@/stores/session'
+import { watchEffect } from 'vue'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const session = useSessionStore()
@@ -15,8 +15,8 @@ watchEffect(() => {
 })
 
 watchEffect(() => {
-  const title = typeof route.meta.title === 'string' ? route.meta.title : 'vastion'
-  document.title = `${title} · vastion`
+  const title = typeof route.meta.title === 'string' ? route.meta.title : 'baluardo'
+  document.title = `${title} · baluardo`
 })
 </script>
 
