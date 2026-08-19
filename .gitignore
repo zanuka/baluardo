@@ -44,3 +44,6 @@ coverage
 # Private planning (not for public tree yet)
 docs/dev/
 .cursor/
+
+# Nocciolo
+.nocciolo/

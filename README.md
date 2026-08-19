@@ -2,9 +2,18 @@
 
 ![baluardo](images/baluardo.jpg)
 
-**Baluardo** (Italian for *bulwark*) — a protective wall; the strong defense of the fleet. A hosted watchdesk **game**. You are the duty officer on a multi-leg **Quest**: sites and sensors across a delayed fleet feed an imperfect picture while you keep the spacecraft alive long enough to reach the next docking station. You triage detections, type commands, and push decisions back to the edge. The interesting part is not clicking the red contacts — it is deciding under incomplete information while consumables tick down and your previous command is still in flight.
+**Baluardo** (Italian for *bulwark*): a protective wall, the strong defense of the fleet. A hosted watchdesk **game** where you are the duty officer on a multi-leg **Quest**. Sites and sensors across a delayed fleet feed an imperfect picture while propellant, O₂, rations, and crew condition tick down between waypoints. Your primary input is a persistent command line, not a wall of buttons: type structured orders (`ACK 42`, `ADVANCE`, `DOCK`, `QUERY Kepler-22b`) and read plain-text replies in the spirit of *The Oregon Trail* and *Space Quest I*, or talk to the watchdesk in natural language when you need clarification, lore, or supply advice. That conversational layer is powered by [Strumentario](https://github.com/zanuka/strumentario), a sibling open-source MCP instrument server that keeps typed commands and chat aligned while game state stays in Baluardo.
 
-## Vision
+You triage detections (ack, reject, override), restock and ration at waypoints, and unlock astronomy because you arrived, not from a sidebar. Commands travel to the edge on a light-minute delay: by the time your ack lands, the contact may have moved, faded, or changed confidence. The interesting part is not clicking red markers. It is deciding well under incomplete information while consumables drain and your previous command is still in flight.
+
+## Docs
+
+- [Game overview](docs/game-overview.md) — player fantasy, domain vocabulary, workflow
+- [Tech stack](docs/tech-stack.md) — frontend, backend, and design system choices
+- [Design system](docs/design-system.md) — tokens, primitives, ops-first UI patterns
+- [Project config](docs/project-config.md) — folder layout and repo structure
+
+## Concept
 
 Most command games hide uncertainty. Baluardo makes it the gameplay. The longer container is a **Quest** — an Oregon Trail–style interplanetary journey. While you triage detections under light-minute delay, you also manage propellant, O₂, rations, and spare parts, and you pick up real (or carefully fictionalized) astronomy because you are there.
 
@@ -117,29 +126,6 @@ Verify the API is up:
 curl http://localhost:8080/healthz
 ```
 
-## Project layout
-
-```
-src/
-  app/              router, plugins, App.vue, main.ts
-  api/rest/         ofetch client, command mutations
-  api/graphql/      GraphQL client (after the playable loop)
-  api/realtime/     WebSocket client + event schemas (game track)
-  features/
-    detections/     queue, detail, ack / reject
-    situation/      canvas map (game track)
-    scenario/       start watch, session chrome (game track)
-    debrief/        after-action plots (game track)
-  components/       shared UI + layout shell
-  composables/      reusable useX helpers
-  stores/           Pinia (operator, toasts, flags, active session id)
-  styles/
-  mocks/            MSW (stub routes the API has not shipped yet)
-cypress/
-  component/
-  e2e/
-```
-
 ## Local development
 
 The header shows **Live API** or **MSW** so you can tell which source is serving the queue.
@@ -165,8 +151,8 @@ Same UI and client; the worker intercepts `http://localhost:8080/api/v1/*` with 
 
 ## Author
 
-Created by [zanuka](https://github.com/zanuka) (Michael Delucchi)
+Created by [zanuka](https://github.com/zanuka) (Mike Delucchi)
 
 ## License
 
-Copyright © 2026 Michael Delucchi. Released under the [MIT License](LICENSE).
+Copyright © 2026 Mike Delucchi. Released under the [MIT License](LICENSE).
