@@ -1,0 +1,25 @@
+{
+  "font": {
+    "family": {
+      "sans": {
+        "$value": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        "$type": "fontFamily"
+      },
+      "mono": {
+        "$value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+        "$type": "fontFamily"
+      }
+    },
+    "size": {
+      "xs": { "$value": "11px", "$type": "dimension" },
+      "sm": { "$value": "13px", "$type": "dimension" },
+      "base": { "$value": "14px", "$type": "dimension" },
+      "lg": { "$value": "16px", "$type": "dimension" }
+    },
+    "weight": {
+      "normal": { "$value": "400", "$type": "fontWeight" },
+      "medium": { "$value": "500", "$type": "fontWeight" },
+      "semibold": { "$value": "600", "$type": "fontWeight" }
+    }
+  }
+}

@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+import { appThemes, type TokenDensity, type TokenTheme } from '@/styles/tokens'
 
-export type AppDensity = 'comfortable' | 'compact'
-export type AppTheme = 'dark' | 'light'
+export type AppDensity = TokenDensity
+export type AppTheme = TokenTheme
 export type OperatorRole = 'analyst' | 'supervisor'
 
 export const useSessionStore = defineStore('session', () => {
@@ -25,8 +26,13 @@ export const useSessionStore = defineStore('session', () => {
     density.value = density.value === 'comfortable' ? 'compact' : 'comfortable'
   }
 
+  function cycleTheme() {
+    const index = appThemes.indexOf(theme.value)
+    theme.value = appThemes[(index + 1) % appThemes.length] ?? 'dark'
+  }
+
   function toggleTheme() {
-    theme.value = theme.value === 'dark' ? 'light' : 'dark'
+    cycleTheme()
   }
 
   function setOperatorRole(role: OperatorRole) {
@@ -43,6 +49,7 @@ export const useSessionStore = defineStore('session', () => {
     setTheme,
     toggleDensity,
     toggleTheme,
+    cycleTheme,
     setOperatorRole,
   }
 })

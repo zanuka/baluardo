@@ -13,15 +13,21 @@ describe('useSessionStore', () => {
     expect(store.theme).toBe('dark')
   })
 
-  it('toggles density and theme', () => {
+  it('toggles density and cycles theme', () => {
     setActivePinia(createPinia())
     const store = useSessionStore()
 
     store.toggleDensity()
     expect(store.density).toBe('compact')
 
-    store.toggleTheme()
+    store.cycleTheme()
     expect(store.theme).toBe('light')
+
+    store.cycleTheme()
+    expect(store.theme).toBe('high-contrast')
+
+    store.cycleTheme()
+    expect(store.theme).toBe('dark')
   })
 
   it('updates operator role', () => {

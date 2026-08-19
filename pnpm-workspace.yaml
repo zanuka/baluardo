@@ -1,0 +1,7 @@
+allowBuilds:
+  cypress: true
+  esbuild: true
+  msw: true
+  vue-demi: true
+
+minimumReleaseAge: 10080

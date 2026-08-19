@@ -1,15 +1,28 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import EmptyState from '@/components/EmptyState.vue'
 import ErrorState from '@/components/ErrorState.vue'
 import ForbiddenState from '@/components/ForbiddenState.vue'
-import DetectionsFilters from '@/features/detections/components/DetectionsFilters.vue'
+import LoadingState from '@/components/ui/LoadingState.vue'
+import { severityRowAccentClasses } from '@/components/ui/severity'
+import VirtualizedTable from '@/components/ui/VirtualizedTable.vue'
 import DetectionListItem from '@/features/detections/components/DetectionListItem.vue'
+import DetectionsFilters from '@/features/detections/components/DetectionsFilters.vue'
 import { useDetectionFilters } from '@/features/detections/composables/useDetectionFilters'
 import { useDetectionsList } from '@/features/detections/composables/useDetectionsList'
+import { detectionRowGridTemplate } from '@/features/detections/constants'
+import { computed } from 'vue'
 
 const { items, viewState, reload } = useDetectionsList()
 const { filters } = useDetectionFilters()
+
+const columns = [
+  { id: 'severity', header: 'Severity', class: 'justify-center' },
+  { id: 'summary', header: 'Detection' },
+  { id: 'status', header: 'Status', class: 'justify-end' },
+  { id: 'confidence', header: 'Confidence', class: 'justify-end' },
+]
+
+const detectionRowGrid = detectionRowGridTemplate
 
 const emptyDescription = computed(() => {
   const parts: string[] = []
@@ -30,22 +43,16 @@ const emptyDescription = computed(() => {
 </script>
 
 <template>
-  <div class="mx-auto max-w-5xl space-y-6">
+  <div class="mx-auto max-w-5xl space-y-(--stack-gap)">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h2 class="text-lg font-semibold text-slate-100">Triage queue</h2>
+        <h2 class="text-lg font-semibold text-foreground">Triage queue</h2>
         <p class="mt-1 text-sm text-muted">Prioritized detections awaiting operator review.</p>
       </div>
       <DetectionsFilters />
     </div>
 
-    <div
-      v-if="viewState === 'loading'"
-      class="flex items-center justify-center rounded-lg border border-border bg-surface-raised py-16"
-      data-testid="loading-state"
-    >
-      <p class="text-sm text-muted">Loading detections…</p>
-    </div>
+    <LoadingState v-if="viewState === 'loading'" />
 
     <ForbiddenState v-else-if="viewState === 'forbidden'" />
 
@@ -62,10 +69,18 @@ const emptyDescription = computed(() => {
       :description="emptyDescription"
     />
 
-    <ul v-else class="space-y-2" data-testid="detections-list">
-      <li v-for="detection in items" :key="detection.id">
-        <DetectionListItem :detection="detection" />
-      </li>
-    </ul>
+    <VirtualizedTable
+      v-else
+      :items="items"
+      :columns="columns"
+      :grid-template-columns="detectionRowGrid"
+      :get-row-key="(row) => row.id"
+      :get-row-class="(row) => severityRowAccentClasses[row.severity]"
+      test-id="detections-list"
+    >
+      <template #row="{ item }">
+        <DetectionListItem :detection="item" />
+      </template>
+    </VirtualizedTable>
   </div>
 </template>

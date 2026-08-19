@@ -1,0 +1,8 @@
+{
+  "density-scale": { "$value": "1", "$type": "number" },
+  "table-row-height": { "$value": "40px", "$type": "dimension" },
+  "control-height": { "$value": "36px", "$type": "dimension" },
+  "stack-gap": { "$value": "16px", "$type": "dimension" },
+  "shell-padding": { "$value": "24px", "$type": "dimension" },
+  "font-size-ui": { "$value": "14px", "$type": "dimension" }
+}

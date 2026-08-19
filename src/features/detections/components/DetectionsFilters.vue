@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { DetectionSeverity, DetectionStatus } from '@/api/rest/schemas'
+import Label from '@/components/ui/Label.vue'
 import { useDetectionFilters } from '@/features/detections/composables/useDetectionFilters'
+import { cn } from '@/lib/utils'
 
 const { filters, setFilters } = useDetectionFilters()
 
@@ -19,14 +21,15 @@ const statusOptions: { value: DetectionStatus | ''; label: string }[] = [
   { value: 'rejected', label: 'Rejected' },
 ]
 
-const selectClass =
-  'rounded-md border border-border bg-surface px-3 py-1.5 text-sm text-slate-100 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent'
+const selectClass = cn(
+  'h-[var(--control-height)] rounded-md border border-border bg-surface px-[calc(var(--space-3)*var(--density-scale))] text-sm text-foreground focus-visible:border-accent focus-visible:focus-ring',
+)
 </script>
 
 <template>
-  <div class="flex flex-wrap items-end gap-4" data-testid="detections-filters">
+  <div class="flex flex-wrap items-end gap-(--stack-gap)" data-testid="detections-filters">
     <label class="flex flex-col gap-1">
-      <span class="text-xs font-medium uppercase tracking-wide text-muted">Severity</span>
+      <Label>Severity</Label>
       <select
         data-testid="filter-severity"
         :class="selectClass"
@@ -43,7 +46,7 @@ const selectClass =
       </select>
     </label>
     <label class="flex flex-col gap-1">
-      <span class="text-xs font-medium uppercase tracking-wide text-muted">Status</span>
+      <Label>Status</Label>
       <select
         data-testid="filter-status"
         :class="selectClass"

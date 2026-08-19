@@ -23,11 +23,20 @@ export default tseslint.config(
     },
   },
   {
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+      },
+    },
+  },
+  {
     files: ['**/*.{ts,tsx,vue}'],
     languageOptions: {
       globals: {
         document: 'readonly',
         crypto: 'readonly',
+        HTMLDivElement: 'readonly',
       },
     },
     rules: {

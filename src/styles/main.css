@@ -1,36 +1,62 @@
 @import 'tailwindcss';
+@import './tokens.css';
 
-@theme {
-  --color-surface: #0f1419;
-  --color-surface-raised: #1a2332;
-  --color-border: #2d3a4d;
-  --color-muted: #8b9cb3;
-  --color-accent: #3b82f6;
-}
-
-:root[data-theme='light'] {
-  --color-surface: #f1f5f9;
-  --color-surface-raised: #ffffff;
-  --color-border: #cbd5e1;
-  --color-muted: #64748b;
-  --color-accent: #2563eb;
-}
-
-:root[data-theme='light'] body,
-:root[data-theme='light'] #app {
-  color: #0f172a;
-}
-
-:root[data-theme='light'] .text-slate-100 {
-  color: #0f172a;
-}
-
-:root[data-theme='light'] .text-blue-200 {
-  color: #1d4ed8;
-}
-
-:root[data-theme='light'] .hover\:text-slate-100:hover {
-  color: #0f172a;
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-focus-ring: var(--focus-ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-fg: var(--destructive-fg);
+  --color-severity-critical: var(--severity-critical);
+  --color-severity-critical-fg: var(--severity-critical-fg);
+  --color-severity-critical-border: var(--severity-critical-border);
+  --color-severity-high: var(--severity-high);
+  --color-severity-high-fg: var(--severity-high-fg);
+  --color-severity-high-border: var(--severity-high-border);
+  --color-severity-medium: var(--severity-medium);
+  --color-severity-medium-fg: var(--severity-medium-fg);
+  --color-severity-medium-border: var(--severity-medium-border);
+  --color-severity-low: var(--severity-low);
+  --color-severity-low-fg: var(--severity-low-fg);
+  --color-severity-low-border: var(--severity-low-border);
+  --color-status-open: var(--status-open);
+  --color-status-acked: var(--status-acked);
+  --color-status-rejected: var(--status-rejected);
+  --color-confidence-high: var(--confidence-high);
+  --color-confidence-mid: var(--confidence-mid);
+  --color-confidence-low: var(--confidence-low);
+  --color-freshness-stale: var(--freshness-stale);
+  --color-freshness-unknown: var(--freshness-unknown);
+  --color-data-degraded: var(--data-degraded);
+  --color-data-offline: var(--data-offline);
+  --color-error-surface: var(--error-surface);
+  --color-error-border: var(--error-border);
+  --color-error-fg: var(--error-fg);
+  --color-warning-surface: var(--warning-surface);
+  --color-warning-border: var(--warning-border);
+  --color-warning-fg: var(--warning-fg);
+  --color-toast-info-bg: var(--toast-info-bg);
+  --color-toast-info-fg: var(--toast-info-fg);
+  --color-toast-info-border: var(--toast-info-border);
+  --color-toast-success-bg: var(--toast-success-bg);
+  --color-toast-success-fg: var(--toast-success-fg);
+  --color-toast-success-border: var(--toast-success-border);
+  --color-toast-warning-bg: var(--toast-warning-bg);
+  --color-toast-warning-fg: var(--toast-warning-fg);
+  --color-toast-warning-border: var(--toast-warning-border);
+  --color-toast-error-bg: var(--toast-error-bg);
+  --color-toast-error-fg: var(--toast-error-fg);
+  --color-toast-error-border: var(--toast-error-border);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
 }
 
 :root[data-density='compact'] .header {
@@ -38,24 +64,50 @@
 }
 
 :root[data-density='compact'] main {
-  padding: 1rem;
+  padding: var(--shell-padding);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--color-surface);
-  color: #e2e8f0;
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
+  background-color: var(--surface);
+  color: var(--foreground);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-ui);
 }
 
 #app {
   min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility focus-ring {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@utility row-highlight {
+  animation: row-highlight 300ms ease-out;
+}
+
+@keyframes row-highlight {
+  from {
+    background-color: color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+  to {
+    background-color: transparent;
+  }
 }

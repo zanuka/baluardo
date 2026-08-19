@@ -1,0 +1,8 @@
+{
+  "shadow": {
+    "overlay": {
+      "$value": "0 8px 32px rgba(0, 0, 0, 0.45)",
+      "$type": "shadow"
+    }
+  }
+}
