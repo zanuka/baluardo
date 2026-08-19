@@ -47,3 +47,5 @@ docs/dev/
 
 # Nocciolo
 .nocciolo/
+
+.AGENTS.md

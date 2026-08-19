@@ -10,7 +10,7 @@ defineProps<{
     class="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-surface-raised px-8 py-16 text-center"
     data-testid="empty-state"
   >
-    <p class="text-lg font-medium text-slate-100">{{ title }}</p>
+    <p class="text-lg font-medium text-foreground">{{ title }}</p>
     <p v-if="description" class="mt-2 max-w-md text-sm text-muted">
       {{ description }}
     </p>

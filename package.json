@@ -9,18 +9,12 @@
   "engines": {
     "node": ">=22"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "cypress",
-      "esbuild",
-      "msw"
-    ]
-  },
   "scripts": {
     "dev": "vite --mode api",
     "dev:api": "vite --mode api",
     "dev:msw": "vite --mode msw",
     "build": "vue-tsc -b && vite build",
+    "prebuild": "pnpm tokens:build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -28,11 +22,19 @@
     "cypress:component": "cypress run --component",
     "cypress:open": "cypress open",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "tokens:build": "node scripts/build-tokens.mjs",
+    "tokens:watch": "node --watch scripts/build-tokens.mjs"
   },
   "dependencies": {
+    "@lucide/vue": "^1.31.0",
+    "@tanstack/vue-virtual": "^3.13.35",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "ofetch": "^1.4.1",
     "pinia": "^3.0.3",
+    "reka-ui": "^2.10.3",
+    "tailwind-merge": "^3.6.0",
     "vue": "^3.5.40",
     "vue-router": "^4.5.1",
     "zod": "^3.25.76"
@@ -51,7 +53,9 @@
     "jsdom": "^26.1.0",
     "msw": "^2.15.0",
     "prettier": "^3.6.2",
+    "shadcn-vue": "^2.8.2",
     "start-server-and-test": "^2.0.13",
+    "style-dictionary": "^5.5.1",
     "tailwindcss": "^4.1.11",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.39.1",
@@ -60,7 +64,7 @@
     "vue-eslint-parser": "^10.4.1",
     "vue-tsc": "^3.0.5"
   },
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@11.21.0",
   "msw": {
     "workerDirectory": [
       "public"

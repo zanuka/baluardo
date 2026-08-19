@@ -22,7 +22,7 @@ watchEffect(() => {
 
 <template>
   <div
-    class="flex min-h-screen bg-surface text-slate-100"
+    class="flex min-h-screen bg-surface text-foreground"
     data-testid="app-shell"
     :data-density="session.density"
     :data-theme="session.theme"
@@ -30,7 +30,7 @@ watchEffect(() => {
     <AppSidebar />
     <div class="flex min-w-0 flex-1 flex-col">
       <AppHeader />
-      <main class="flex-1 overflow-auto p-6">
+      <main class="flex-1 overflow-auto p-(--shell-padding)">
         <router-view />
       </main>
     </div>

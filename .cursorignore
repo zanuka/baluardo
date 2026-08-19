@@ -1,0 +1,48 @@
+# baluardo — Cursor ignore
+# Cursor also respects .gitignore and built-in defaults (node_modules, lockfiles,
+# binaries, .env*, etc.). This file adds project-specific blocks and un-ignores.
+
+# Secrets (defense in depth)
+.env
+.env.local
+.env.*.local
+**/credentials.json
+**/secrets.json
+**/*.pem
+**/*.key
+**/id_rsa
+
+# Tracked Vite mode files (override default .env* block)
+!.env.example
+!.env.api
+!.env.msw
+
+# Build, deps, caches
+node_modules/
+.pnpm-store/
+dist/
+dist-ssr/
+coverage/
+*.tsbuildinfo
+
+# Logs
+*.log
+
+# Cypress artifacts
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# Generated vendor blobs
+public/mockServiceWorker.js
+
+# Private tooling
+.nocciolo/
+
+# Gitignored locally but needed by agents (plan, rules)
+!docs/dev/
+!docs/dev/**
+!.cursor/
+!.cursor/**
+!.cursor/rules/
+!.cursor/rules/**
